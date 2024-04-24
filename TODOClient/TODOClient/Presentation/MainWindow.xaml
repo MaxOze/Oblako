@@ -1,0 +1,70 @@
+﻿<Window x:Class="TODOClient.Presentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Initialized="MainWindow_OnInitialized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <DataGrid Grid.Column="0" Grid.Row="0" Margin="20 20 10 0" 
+                  ItemsSource="{Binding TodoList}" SelectedItem="{Binding SelectedTodoItem}"
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Задание" Width="7*" Binding="{Binding Name}" />
+                <DataGridCheckBoxColumn Header="Выполнено" Width="2*" Binding="{Binding IsComplete}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Grid Grid.Column="1" Grid.Row="0" Margin="10 20 20 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Button Grid.Row="0" Content="Обновить данные" Height="30" VerticalAlignment="Top" Click="GetAllItems_OnClick" />
+            <StackPanel Grid.Row="1">
+                <TextBox Text="{Binding IdString}" Margin="0 0 0 10"/>
+                <Button Content="Получить по ID" Height="30" Click="GetItemById_OnClick" />
+            </StackPanel>
+           
+            <Button Grid.Row="2" Content="Создать" Height="30" VerticalAlignment="Bottom" Click="CreateItem_OnClick" />
+            <Button Grid.Row="3" Content="Обновить" Height="30" VerticalAlignment="Bottom" Click="UpdateItem_OnClick" />
+            <Button Grid.Row="4" Content="Удалить" Height="30" VerticalAlignment="Bottom" Click="DeleteItem_OnClick" />
+        </Grid>
+        
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="20 5 20 20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Задание" VerticalAlignment="Bottom" FontSize="16" />
+            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Name}" Margin="0 5 0 0"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="Выполнено" VerticalAlignment="Bottom" FontSize="16" />
+            <CheckBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Checked}" />
+            <Button Grid.Column="2" Grid.Row="1" IsEnabled="{Binding IsChange}" Click="SaveChanges_OnClick"
+                    Content="Сохранить" Height="30" Margin="20 0 0 0" VerticalAlignment="Bottom"/>
+        </Grid>
+        
+        
+    </Grid>
+</Window>
